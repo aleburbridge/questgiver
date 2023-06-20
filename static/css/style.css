@@ -1,0 +1,125 @@
+body {
+    font-family: Helvetica;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: #0a1420;
+    color: white;
+    text-align: center;
+}
+
+footer{
+    color: lightgray;
+    background: #0d1c2b;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    
+    /* fix to bottom of page */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    text-decoration: underline;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+h1 {
+    margin-top: 100px;
+    text-align: center;
+}
+
+button {
+    padding: 1em;
+    border: none;
+    border-radius: 0.5em;
+    background-color: #1f2937;
+    color: white;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    width: 75%;
+    margin-bottom: 1em;
+}
+
+button:hover {
+    background-color: #374151;
+}
+
+input {
+    box-sizing: border-box;
+    margin-bottom: 1em;
+    margin-top: 1em;
+
+    padding: 1em;
+    border: none;
+    border-radius: 0.5em;
+    background-color: #2f3947;
+    color: white;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+    width: 75%;
+}
+
+ul {
+    padding-inline-start: 0px;
+    list-style-type: none;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+.title {
+    margin-bottom: 0;
+}
+
+.errorMessage {
+    color: rgb(255, 119, 119);
+}
+
+.homePageForm {
+    text-align: center;
+}
+
+@keyframes pulse {
+    0% {
+      color: gray;
+    }
+    50% {
+      color: white;
+    }
+    100% {
+      color: gray;
+    }
+}
+  
+.pulse {
+animation: pulse 1s linear infinite;
+}
+
+#textName {
+    margin-bottom: 0;
+}
+
+#textGameId {
+    margin-bottom: 1em;
+}
+
+.create {
+    margin-top: 1em;
+}

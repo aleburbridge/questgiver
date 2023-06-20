@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% block content %}
+<h3>A game of cunning and deceit!</h3>
+<form method="post" class="homePageForm" autocomplete="off">
+    {% if error %}
+    <ul>
+        <li class="errorMessage">{{error}}</li>
+    </ul>
+    {% endif %}
+
+    <input type='text' id='textName' placeholder="Name" name="name" value="{{ name }}">
+    <input type="text" placeholder="Room Code" name="code" value="{{ codeInput }}"/>
+    <button type="submit" name="join">Join Room</button>
+    <hr>
+    <button type="submit" name="create" class="create">Create Room</button>
+</form>
+
+{% if roomCode %}
+    <p class="pulse">Room Created</p>
+    <p class="roomCode">Room Code: <strong>{{ roomCode }}</strong></p>
+{% endif %}
+
+{% endblock %}
