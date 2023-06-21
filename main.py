@@ -2,14 +2,12 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from flask_socketio import join_room, leave_room, send, SocketIO, emit
 import random
 from string import ascii_uppercase
-from roles import Role
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "hglhasglkhsdlgh"
 socketio = SocketIO(app)
 
 rooms = {}
-emojis = ["😏","🤠","👹","👽","🙊","👻","🤡","😼","👀","🦄","🐔","🐸"]
 
 def generate_room_code(length):
     while True:
@@ -23,7 +21,7 @@ def generate_room_code(length):
     return code 
 
 def create_room_from_code(code):
-    rooms[code] = {"players": [], "host": "", "assignedEmojis": []}
+    rooms[code] = {"players": [], "host": ""}
     session["roomCode"] = code
 
 # -----Routes below this line ------
@@ -56,18 +54,9 @@ def home():
         session["name"] = name
         session["roomCode"] = codeInput
 
-        if "emoji" not in session:
-            available_emojis = list(set(emojis) - set(rooms[codeInput]["assignedEmojis"]))
-            if available_emojis:
-                emoji = random.choice(available_emojis)
-            else: 
-                emoji = "👹"
-            session["emoji"] = emoji
-            rooms[codeInput]["assignedEmojis"].append(emoji)
 
         rooms[codeInput]["players"].append({
             "name": name,
-            "emoji": session["emoji"],
             "inLobby": True
         })
 
@@ -80,8 +69,7 @@ def lobby():
     roomCode = session.get("roomCode")
     return render_template(
         "lobby.html", 
-        players = [player["name"] + " " + player["emoji"] for player in rooms[roomCode]["players"] if player["inLobby"]],
-        you = session["name"] + " (you) " + rooms[roomCode]["players"][session["name"]]["emoji"],
+        players = [player["name"] + " (you)" if player["name"] == session["name"] else player["name"] for player in rooms[roomCode]["players"] if player["inLobby"]],
         code = roomCode
     )
 

@@ -8,12 +8,9 @@
     </form>
     <ul>
     {% if players %}
+        <li>{{you}}</li>
         {% for player in players %}
-            {% if player == you %}
-                <li>{{you}} (you)</li>
-            {% else %}
             <li>{{player}}</li>
-            {% endif %}
         {% endfor %}
     {% endif %}
     </ul>

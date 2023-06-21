@@ -1,6 +1,23 @@
 {% extends 'base.html'%}
 {% block content %}
+
 <h3>A game of cunning and deceit!</h3>
+<h4><a href="#" id="openPopup">(What is Quest Giver?)</a></h4>
+
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+    <p>"Quest Giver" is an incredibly exciting and immersive game that transports players to a magical realm of endless adventures. In this vibrant world, you assume the role of a brave hero, tasked with completing epic quests and unraveling thrilling mysteries.
+
+        The game offers a visually stunning environment, boasting meticulously crafted landscapes, bustling towns, and treacherous dungeons. As you explore, you encounter a wide array of characters, from wise sages to mischievous rogues, each with their unique personalities and stories to share.
+        
+        Embark on quests of varying complexity, ranging from rescuing kidnapped villagers from a menacing dragon to solving mind-bending riddles hidden deep within ancient ruins. Along your journey, you'll face fierce monsters, engage in exhilarating battles, and acquire powerful weapons and magical artifacts.
+        
+        The captivating storyline unfolds through richly detailed dialogue and cinematic cutscenes, captivating players with its immersive narrative and memorable characters. Make choices that shape the course of your adventure, influencing the outcome and determining the fate of the realm.
+        
+        But wait, there's more! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempus erat quis ex pharetra, nec tincidunt dui semper. Fusce interdum sapien nisl, eu posuere velit semper et. Vestibulum lacinia, odio a auctor faucibus, nulla dolor consectetur nibh, eu tincidunt mauris purus et odio. Aliquam erat volutpat. Donec cursus mauris ut nunc feugiat, id iaculis orci interdum. Mauris vitae ex nec mi fermentum tristique a a nulla. In porttitor lacus eget suscipit elementum. Proin sodales nulla nec nibh dapibus gravida. Donec auctor, nisl id volutpat tincidunt, neque nisl vulputate nisi, vitae vulputate purus mi at erat. Sed sit amet ligula eu sem bibendum bibendum. Curabitur mollis pharetra nunc. Vestibulum laoreet leo et felis dignissim varius. Sed vitae eleifend nulla. Nulla facilisi. Integer fermentum lectus non nunc pellentesque eleifend. Vestibulum pulvinar urna sed justo viverra luctus.</p>
+    <button onclick="closePopup()">Close</button>
+</div>
+
 <form method="post" class="homePageForm" autocomplete="off">
     {% if error %}
     <ul>
@@ -19,5 +36,38 @@
     <p class="pulse">Room Created</p>
     <p class="roomCode">Room Code: <strong>{{ roomCode }}</strong></p>
 {% endif %}
+<script>
+    function openPopup() {
+        var overlay = document.getElementById("overlay");
+        var popup = document.getElementById("popup");
 
+        overlay.style.display = "block";
+        setTimeout(function() {
+            overlay.style.opacity = 1;
+            popup.classList.add("fade-in");
+            popup.style.display = "block";
+            setTimeout(function() {
+                popup.style.opacity = 1;
+            }, 10);
+        }, 10);
+    }
+
+    function closePopup() {
+        var overlay = document.getElementById("overlay");
+        var popup = document.getElementById("popup");
+
+        popup.style.opacity = 0;
+        setTimeout(function() {
+            overlay.style.opacity = 0;
+            popup.classList.remove("fade-in");
+            popup.style.display = "none";
+            setTimeout(function() {
+                overlay.style.display = "none";
+            }, 300);
+        }, 300);
+    }
+
+    document.getElementById("openPopup").addEventListener("click", openPopup);
+</script>
+</body>
 {% endblock %}
