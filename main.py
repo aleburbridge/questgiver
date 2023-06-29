@@ -25,6 +25,17 @@ def create_room_from_code(code):
     rooms[code] = {"players": [], "host": ""}
     session["roomCode"] = code
 
+def generate_random_color():
+    # Generate random values for red, green, and blue channels
+    red = random.randint(0, 255)
+    green = random.randint(0, 255)
+    blue = random.randint(0, 255)
+    
+    # Convert the RGB values to a hex code
+    hex_code = '#{:02x}{:02x}{:02x}'.format(red, green, blue)
+    
+    return hex_code
+
 # -----Routes------
 @app.route("/", methods=["POST", "GET"])
 def home():
@@ -54,7 +65,7 @@ def home():
 
         session["name"] = name
         session["roomCode"] = codeInput
-
+        session["userColor"] = generate_random_color()
 
         rooms[codeInput]["players"].append({
             "name": name,
@@ -104,9 +115,9 @@ def connect(auth):
 # -----Chat------
 @socketio.on('message')
 def handle_message(message):
-    print("Received message: " + message)
-    if message != "User connected!":
-        send(message, broadcast=True)
+    name = session["name"]
+    color = session["userColor"]
+    send({"name": name, "color": color, "message": message}, broadcast=True)
 
 # -----Run------
 if __name__ == "__main__":

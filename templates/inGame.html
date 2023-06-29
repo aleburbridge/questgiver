@@ -67,7 +67,40 @@
             max-height: 100%;
             object-fit: contain;
         }
-    
+
+        .chat-box {
+            width: 100%;
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            }
+
+        .messages-container {
+        width: 100%;
+        }
+
+        .messages-container p {
+        margin: 5px 0;
+        }
+
+        .input-section {
+        display: flex;
+        align-items: center;
+        }
+
+        .input-section input[type="text"] {
+        flex: 1;
+        padding: 5px;
+        }
+
+        .input-section button {
+        margin-left: 10px;
+        padding: 5px;
+        cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -97,31 +130,32 @@
                 <img src="{{url_for('static', filename='images/board.png')}}"/>
             </div>
         </div>
-        <div class="chat-section">
-            <input type="text" id="message" placeholder="Message :)">
-            <button id="send-message-button">Send</button>
-            <div id="messages">
 
+        <div class="chat-box">
+            <div id="messages" class="messages-container">
+                <!-- Messages will be dynamically added here -->
             </div>
         </div>
+        <div class="input-section">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <button id="send-message-button">Send</button>
+        </div>
+          
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.min.js"></script>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
             var socket = io.connect("http://localhost:5000");
     
-            socket.on('connect', function() {
-                socket.send("User connected!");
-            });
-    
             socket.on('message', function(message) {
                 var messageElement = document.createElement('p');
-                messageElement.textContent = message;
+                var randomColor = message.color;
+                messageElement.innerHTML = `<span style="color: ${randomColor}">${message.name}: </span>${message.message}`;
                 document.getElementById('messages').appendChild(messageElement);
             });
     
             document.getElementById('send-message-button').addEventListener('click', function() {
-                var messageInput = document.getElementById('message');
+                var messageInput = document.getElementById('message-input');
                 socket.send(messageInput.value);
                 messageInput.value = '';
             });
