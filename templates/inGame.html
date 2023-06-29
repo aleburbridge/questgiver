@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Quest Giver Game {{code}}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh; 
+            overflow: hidden;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        .container {
+            margin: 40px; 
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+
+        }
+
+        .image-column {
+            background: rgb(182, 138, 107);
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            max-width: 33vw;
+        }
+
+        .image-column-you, .image-column-enemy {
+            border: 1px solid black;
+            text-align: center;
+            width: 50%;
+        }
+
+        .quest-items-column {
+            background: rgb(145, 110, 85);
+            text-align: center;
+            flex: 1;
+        }
+
+        .quests {
+            box-sizing: border-box;
+            border: 1px solid black;
+            height: 50%;
+        }
+
+        .items {
+            box-sizing: border-box;
+            border: 1px solid black;
+            height: 50%;
+        }
+
+        .board-column {
+            flex: 1;
+            max-width: 50%;
+        }
+
+        .board-column img {
+            border: 1px solid black;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+
+            <div class="image-column">
+                <div class="image-column-you">
+                        <img src="{{url_for('static', filename='images/questman.png')}}"/>
+                        <p>Gold: 20</p>
+                </div>
+                <div class="image-column-enemy">
+                        <img src="{{url_for('static', filename='images/questman2.png')}}"/>
+                        <p>Gold: ?</p>
+                </div>
+            </div>
+
+            <div class="quest-items-column">
+                <div class="quests">
+                    <h2>Quests</h2>
+                </div>
+                <div class="items">
+                    <h2>Items</h2>
+                </div>
+            </div>
+            <div class="board-column">
+                <img src="{{url_for('static', filename='images/board.png')}}"/>
+            </div>
+        </div>
+        <div class="chat-section">
+            <input type="text" id="message" placeholder="Message :)">
+            <button id="send-message-button">Send</button>
+            <div id="messages">
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var socket = io.connect("http://localhost:5000");
+    
+            socket.on('connect', function() {
+                socket.send("User connected!");
+            });
+    
+            socket.on('message', function(message) {
+                var messageElement = document.createElement('p');
+                messageElement.textContent = message;
+                document.getElementById('messages').appendChild(messageElement);
+            });
+    
+            document.getElementById('send-message-button').addEventListener('click', function() {
+                var messageInput = document.getElementById('message');
+                socket.send(messageInput.value);
+                messageInput.value = '';
+            });
+        });
+    </script>
+    
+</body>
+</html>

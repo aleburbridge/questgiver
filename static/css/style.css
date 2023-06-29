@@ -94,6 +94,7 @@ li {
 
 .homePageForm {
     text-align: center;
+    margin-top:none;
 }
 
 @keyframes pulse {
@@ -112,7 +113,12 @@ li {
 animation: pulse 1s linear infinite;
 }
 
+#openPopup {
+    color: lightgray;
+}
+
 #textName {
+    margin-top: 0.5em;
     margin-bottom: 0;
 }
 
