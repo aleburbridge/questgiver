@@ -27,9 +27,9 @@ def create_room_from_code(code):
 
 def generate_random_color():
     # Generate random values for red, green, and blue channels
-    red = random.randint(0, 255)
-    green = random.randint(0, 255)
-    blue = random.randint(0, 255)
+    red = random.randint(127, 255)
+    green = random.randint(127,255)
+    blue = random.randint(127, 255)
     
     # Convert the RGB values to a hex code
     hex_code = '#{:02x}{:02x}{:02x}'.format(red, green, blue)
@@ -115,8 +115,12 @@ def connect(auth):
 # -----Chat------
 @socketio.on('message')
 def handle_message(message):
-    name = session["name"]
-    color = session["userColor"]
+    if session["name"]:
+        name = session["name"]
+    else:
+        name = "BUG name not saved in session"
+    if session["userColor"]:
+        color = session["userColor"]
     send({"name": name, "color": color, "message": message}, broadcast=True)
 
 # -----Run------

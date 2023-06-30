@@ -8,6 +8,11 @@
             padding: 0;
             height: 100vh; 
             overflow: hidden;
+            font-family: Helvetica;
+            margin: 0;
+            min-height: 100vh;
+            background: rgb(32, 32, 32);
+            color: white;
         }
 
         h2 {
@@ -25,7 +30,7 @@
         }
 
         .image-column {
-            background: rgb(182, 138, 107);
+            background: rgb(60, 60, 60);
             flex: 1;
             display: flex;
             flex-direction: row;
@@ -33,26 +38,26 @@
         }
 
         .image-column-you, .image-column-enemy {
-            border: 1px solid black;
+            border: 1px solid white;
             text-align: center;
             width: 50%;
         }
 
         .quest-items-column {
-            background: rgb(145, 110, 85);
+            background: rgb(61, 61, 61);
             text-align: center;
             flex: 1;
         }
 
         .quests {
             box-sizing: border-box;
-            border: 1px solid black;
+            border: 1px solid white;
             height: 50%;
         }
 
         .items {
             box-sizing: border-box;
-            border: 1px solid black;
+            border: 1px solid white;
             height: 50%;
         }
 
@@ -62,10 +67,11 @@
         }
 
         .board-column img {
-            border: 1px solid black;
+            border: 1px solid white;
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+            box-sizing: border-box;
         }
 
         .chat-box {
@@ -75,30 +81,62 @@
             border: 1px solid #ccc;
             padding: 10px;
             box-sizing: border-box;
-            }
+        }
 
         .messages-container {
-        width: 100%;
+            width: 100%;
         }
 
         .messages-container p {
-        margin: 5px 0;
+            margin: 5px 0;
         }
 
         .input-section {
-        display: flex;
-        align-items: center;
+            display: flex;
+            align-items: center;
         }
 
         .input-section input[type="text"] {
-        flex: 1;
-        padding: 5px;
+            flex: 1;
+            padding: 5px;
         }
 
         .input-section button {
-        margin-left: 10px;
-        padding: 5px;
-        cursor: pointer;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .chat-box {
+            background: rgb(46, 46, 46);
+            width: 50%;
+            position: right;
+        }
+
+        .input-section {
+            width: 50%
+        }
+
+        input {
+            box-sizing: border-box;
+            padding: 1em;
+            border: 1px solid rgb(128, 128, 128);
+            background-color: rgb(59, 59, 59);
+            color: white;
+            font-size: 1em;
+            text-decoration: none;
+            width: 75%;
+        }
+
+        button {
+            padding: 1em;
+            border: none;
+            background-color: rgb(142, 62, 62);
+            color: white;
+            font-size: 1em;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            width: 25%;
         }
 
     </style>
@@ -159,6 +197,15 @@
                 socket.send(messageInput.value);
                 messageInput.value = '';
             });
+        });
+
+        // Pressing enter sends chat message
+        var input = document.getElementById("message-input");
+        input.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("send-message-button").click();
+            };
         });
     </script>
     
